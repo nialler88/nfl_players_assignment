@@ -1,7 +1,7 @@
-var helmet = require('helmet');
+//var helmet = require('helmet');
 var express = require('express');
 var bodyParser = require('body-parser');
-var yo = require('yo');
+//var yo = require('yo');
 
 var app = express();
 
