@@ -1,4 +1,4 @@
-var helmet = require('helmet');
+//var helmet = require('helmet');
 var express = require('express');
 var bodyParser = require('body-parser');
 //var yo = require('yo');
@@ -11,7 +11,8 @@ var nfl_player = require('./api/nfl_players/index');
 
 //configure the express app to parse JSON-formatted body
 app.use(bodyParser.json());
-app.use(helmet());
+//app.use(helmet());
+//app.use(yo());
 
 
 app.get('/api/nfl_players',nfl_player.index);
