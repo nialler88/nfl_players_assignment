@@ -31,7 +31,7 @@ exports.index = function(req, res) {
         res.status(404).send({});
     }
 };
-// Creates a new nfl_player in datastore.
+// Creates a new nfl_player.
 exports.create = function(req, res) {
     var nfl_player = req.body;
     if (mongoDb){
@@ -50,7 +50,7 @@ exports.create = function(req, res) {
     
 };
 
-// Update an existing nfl_player in datastore.
+// Update an existing nfl_player.
 exports.update = function(req, res) {
     var id = req.params.id;
     var nfl_player = req.body;
@@ -63,7 +63,7 @@ exports.update = function(req, res) {
                          });
     
 };
-// delete an existing contact in datastore.
+// delete an existing contact.
 exports.delete = function(req, res) {
     var id = req.params.id;
     config.logStars('Deleting contact: ' + id);
