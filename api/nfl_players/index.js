@@ -16,7 +16,7 @@ MongoClient.connect(url, function(err, db) {
                     mongoDb = db;
                     });
 
-// Get list of nfl_players
+//gets a list of nfl_players in the system
 exports.index = function(req, res) {
     // Connect to the db
     if (mongoDb){
@@ -27,11 +27,11 @@ exports.index = function(req, res) {
     }
     else
     {
-        config.logStars('No database object!');
-        res.status(404).send({});
+        config.logStars('No database connection!');
+        res.status(400).send({});
     }
 };
-// Creates a new nfl_player.
+//creates a new nfl_player.
 exports.create = function(req, res) {
     var nfl_player = req.body;
     if (mongoDb){
@@ -45,25 +45,33 @@ exports.create = function(req, res) {
     }
     else
     {
-        config.logStars('No database object!');
+        config.logStars('No database connection');
+        res.status(400).send({});
     }
     
 };
 
-// Update an existing nfl_player.
+//update a nfl_player.
 exports.update = function(req, res) {
     var id = req.params.id;
     var nfl_player = req.body;
     config.logStars('Updating contact: ' + id);
+    if (mongoDb){
     var collection = mongoDb.collection('NFL');
     collection.updateOne({'_id':ObjectId(id)}, nfl_player, function(err, result) {
                          assert.equal(err,null);
                          console.log('' + result + ' document(s) updated');
                          res.status(200).send(result);
                          });
+    }
+    else
+    {
+        config.logStars('No database connection');
+        res.status(400).send({});
+    }
     
 };
-// delete an existing contact.
+//delete a nfl_player.
 exports.delete = function(req, res) {
     var id = req.params.id;
     config.logStars('Deleting contact: ' + id);
