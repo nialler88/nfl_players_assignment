@@ -12,6 +12,19 @@ var nfl_player = require('./api/nfl_players/index');
 //configure the express app to parse JSON-formatted body
 app.use(bodyParser.json());
 app.use(helmet());
+
+app.use(helmet.csp({
+                   defaultSrc: ["'self'"],
+                   scriptSrc: ['*.google-analytics.com'],
+                   styleSrc: ["'unsafe-inline'"],
+                   imgSrc: ['*.google-analytics.com'],
+                   connectSrc: ["'none'"],
+                   fontSrc: [],
+                   objectSrc: [],
+                   mediaSrc: [],
+                   frameSrc: []
+                   }));
+
 //app.use(yo());
 
 
