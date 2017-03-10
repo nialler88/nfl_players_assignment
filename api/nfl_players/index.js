@@ -30,6 +30,7 @@ exports.index = function(req, res) {
         config.logStars('No database connection!');
         res.status(400).send({});
     }
+    //nill
 };
 //creates a new nfl_player.
 exports.create = function(req, res) {
