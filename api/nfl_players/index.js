@@ -16,7 +16,7 @@ MongoClient.connect(url, function(err, db) {
                     mongoDb = db;
                     });
 
-//gets a list of nfl_players in the system
+//gets a list of nfl_players from the system
 exports.index = function(req, res) {
     // Connect to the db
     if (mongoDb){
