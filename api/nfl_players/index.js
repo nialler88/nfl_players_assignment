@@ -32,6 +32,7 @@ exports.index = function(req, res) {
     }
     //nill
 };
+
 //creates a new nfl_player.
 exports.create = function(req, res) {
     var nfl_player = req.body;
