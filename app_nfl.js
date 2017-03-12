@@ -1,11 +1,14 @@
-var cookie_session = require('cookie-session')
-var csp = require('helmet-csp');
-var helmet = require('helmet'); //ref:https://www.npmjs.com/package/helmet
 var express = require('express');
 var bodyParser = require('body-parser');
 //var yo = require('yo');
 
 var app = express();
+
+
+var csp = require('helmet-csp');
+var helmet = require('helmet'); //ref:https://www.npmjs.com/package/helmet
+var cookie_session = require('cookie-session')
+var express_session = require('express-session')
 
 var nfl_player = require('./api/nfl_players/index');
 
@@ -45,11 +48,12 @@ app.use(csp({
             // Set to false if you want to completely disable any user-agent sniffing.
             browserSniff: false
             }))
+
 //ref: https://www.npmjs.com/package/helmet-csp
 
-app.set('trust proxy',1)
+//app.set('trust proxy',1)
 
-var expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+/*var expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 app.use(cookie_session({
         
                        name: 'session',
@@ -61,14 +65,34 @@ app.use(cookie_session({
                        path: 'foo/bar',
                        expires: expiryDate
                        }
-                       }))
+                       
+                       
+                       }))*/
 app.get('/', function (req, res, next) {
         // Update views
-        req.session.views = (req.session.views || 0) + 1
+        req.session.views = (req.cookie_session.views || 0) + 1
         
         // Write response
-        res.end(req.session.views + ' views')
+        res.end(req.cookie_session.views + ' views')
         })
+
+//*/
+var sess = {
+secret: 'key1',
+cookie: {
+    
+},
+saveUninitialized:true,
+resave:true
+}
+
+if (app.get('env') === 'production') {
+    app.set('trust proxy', 1) // trust first proxy
+    sess.cookie.secure = true // serve secure cookies
+}
+
+app.use(express_session(sess))
+
 
 //app.use(yo());
 
